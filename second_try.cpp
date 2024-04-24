@@ -212,6 +212,8 @@ void canvas::set_list(pnt * p_list)
     }
 
     shift(list, -minx + 1, -miny + 1, 60);
+    hshift = minx - 1;
+    wshift = miny - 1;
 
     this->height = maxx - minx + 3;
     this->width  = maxy - miny + 3;
@@ -339,8 +341,9 @@ bool PentaminoSolver::recursive_search(int step, uint64_t total)
 {
     static unsigned long long calls = 0;
     calls++;
-    if(calls % 100000 == 0)
-        printf("Operation %10i, step %i\n", calls, step);
+    if(calls % 1000000 == 0)
+//        printf("Operation %10i, step %i\n", calls, step);
+    cout << "Operation " << calls << ", step " << step << std::flush << std::endl;
 //    cout << bitset<64>(total) << endl;
 
     if(step == 12) return true;
@@ -437,6 +440,34 @@ void PentaminoSolver::display_solution()
        delete [] out[i];
    }
    delete [] out;
+}
+
+pnt * PentaminoSolver::schema()
+{
+    pnt * out = new pnt[60];
+    int c = 0;
+    for(int i = 0; i < field.height; i++){
+        for(int j = 0; j < field.width; j++){
+            switch(field.map[i][j]){
+            case -1:
+                break;
+            default:
+                int idx = 0;
+                for(idx = 0; idx < 12; idx++){
+                    if(masks[idx][res[idx]] & (1LL << field.map[i][j])){
+                        out[c].x = i;
+                        out[c].y = j;
+                        out[c].val = idx;
+                        c++;
+                        break;
+                    }
+                }
+                break;
+            }
+        }
+    }
+    shift(out, field.wshift, field.hshift, 60);
+    return out;
 }
 
 /*

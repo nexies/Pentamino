@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>870</width>
+    <height>773</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QGridLayout" name="gridLayout"/>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>870</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFind_Solution">
+    <property name="title">
+     <string>Load figure</string>
+    </property>
+    <addaction name="actionRectangle_6x10"/>
+    <addaction name="actionRectangle_5x12"/>
+    <addaction name="actionRectangle_4x15"/>
+    <addaction name="actionUmbrella"/>
+    <addaction name="actionWhale"/>
+   </widget>
+   <widget class="QMenu" name="menuClear_field">
+    <property name="title">
+     <string>Clear field</string>
+    </property>
+    <addaction name="actionClear"/>
+   </widget>
+   <widget class="QMenu" name="menuSolve">
+    <property name="title">
+     <string>Solve</string>
+    </property>
+    <addaction name="actionValidate"/>
+    <addaction name="actionFind_solution"/>
+   </widget>
+   <addaction name="menuFind_Solution"/>
+   <addaction name="menuClear_field"/>
+   <addaction name="menuSolve"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionRectangle_6x10">
+   <property name="text">
+    <string>Rectangle 6x10</string>
+   </property>
+  </action>
+  <action name="actionRectangle_5x12">
+   <property name="text">
+    <string>Rectangle 5x12</string>
+   </property>
+  </action>
+  <action name="actionRectangle_4x15">
+   <property name="text">
+    <string>Rectangle 4x15</string>
+   </property>
+  </action>
+  <action name="actionUmbrella">
+   <property name="text">
+    <string>Umbrella</string>
+   </property>
+  </action>
+  <action name="actionWhale">
+   <property name="text">
+    <string>Whale</string>
+   </property>
+  </action>
+  <action name="actionValidate">
+   <property name="text">
+    <string>Validate</string>
+   </property>
+  </action>
+  <action name="actionFind_solution">
+   <property name="text">
+    <string>Find solution</string>
+   </property>
+  </action>
+  <action name="actionClear">
+   <property name="text">
+    <string>Clear</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

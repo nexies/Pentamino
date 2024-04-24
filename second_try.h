@@ -3,12 +3,14 @@
 
 #include <iostream>
 #include <vector>
+#include <string.h>
 
 struct pnt
 {
     pnt(int px, int py): x(px), y(py) {}
     pnt(): x(0), y(0) {}
     int x, y;
+    int val {-1};
 };
 
 pnt *copy_fig(pnt *to, pnt *from, int len = 5);
@@ -71,6 +73,7 @@ public:
     pnt list[60];
     char ** map = 0;
     int height, width;
+    int hshift, wshift;
 
 public:
     char check(int x, int y);
@@ -122,7 +125,7 @@ public:
     bool solution(pnt * field);
     void display_solution();
 
-
+    pnt * schema ();
 };
 
 #endif // SECOND_TRY_H
