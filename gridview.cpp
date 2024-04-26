@@ -12,6 +12,7 @@ GridView::GridView(QWidget * parent, int x, int y) :
     {
         grid[i] = QVector<Cell>(y);
     }
+    clear();
 }
 
 pnt *GridView::givePoints()
@@ -101,6 +102,7 @@ void GridView::drawGrid(QPainter & painter)
 
 void GridView::paintCells(QPainter &painter)
 {
+    painter.setRenderHint(QPainter::Antialiasing);
     QRect selfRect = this->geometry();
     int h = selfRect.height();
     int w = selfRect.width();
@@ -114,7 +116,7 @@ void GridView::paintCells(QPainter &painter)
                 painter.setBrush(grid[x][y].color);
             else
                 painter.setBrush(Qt::white);
-            painter.drawRect(y * cellw, x * cellh, cellw, cellh);
+            painter.drawRoundedRect(y * cellw, x * cellh, cellw, cellh, 10, 10);
         }
     }
 }
@@ -125,7 +127,7 @@ void GridView::clear()
         for(int j = 0; j < dimentions.second; j++)
         {
             grid[i][j].active = false;
-            grid[i][j].color = Qt::blue;
+            grid[i][j].color = QColor::fromRgb(200, 200, 200);
         }
     }
     currentActive = 0;
@@ -134,27 +136,72 @@ void GridView::clear()
 
 void GridView::mousePressEvent(QMouseEvent *event)
 {
+
+    auto cap = [] (int val, int min, int max)
+    {
+        if ( val < min ) return min;
+        if ( val > max ) return max;
+        return val;
+    };
+
     QPoint point = event->pos();
     QRect selfRect = this->geometry();
     int h = selfRect.height();
     int w = selfRect.width();
     int cellh = h / dimentions.first;
     int cellw = w / dimentions.second;
-    int x = point.y() / cellh;
-    int y = point.x() / cellw;
+    int x = cap(point.y() / cellh, 0, dimentions.first - 1);
+    int y = cap(point.x() / cellw, 0, dimentions.second - 1);
 
 //    qDebug() << x << y;
     if(grid[x][y].active){
         currentActive --;
         grid[x][y].active = false;
+        dragSettingValue = false;
     }else{
         currentActive ++;
         grid[x][y].active = true;
+        dragSettingValue = true;
     }
 //    grid[x][y].active = !grid[x][y].active;
     qDebug() << currentActive;
     emit selected (currentActive);
     repaint();
+}
+
+void GridView::mouseMoveEvent(QMouseEvent *event)
+{
+    if(event->buttons() == Qt::LeftButton)
+    {
+        auto cap = [] (int val, int min, int max)
+        {
+            if ( val < min ) return min;
+            if ( val > max ) return max;
+            return val;
+        };
+        QPoint point = event->pos();
+        QRect selfRect = this->geometry();
+        int h = selfRect.height();
+        int w = selfRect.width();
+        int cellh = h / dimentions.first;
+        int cellw = w / dimentions.second;
+        int x = cap(point.y() / cellh, 0, dimentions.first-1);
+        int y = cap(point.x() / cellw, 0, dimentions.second-1);
+        if(grid[x][y].active != dragSettingValue)
+        {
+            grid[x][y].active = dragSettingValue;
+            dragSettingValue ? currentActive++ : currentActive --;
+            repaint();
+            qDebug() << currentActive;
+            emit selected (currentActive);
+        }
+
+    }
+}
+
+void GridView::mouseReleaseEvent(QMouseEvent *event)
+{
+
 }
 
 void GridView::paintEvent(QPaintEvent *event)

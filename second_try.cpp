@@ -466,6 +466,45 @@ pnt * PentaminoSolver::schema()
             }
         }
     }
-    shift(out, field.wshift, field.hshift, 60);
+    shift(out, field.hshift, field.wshift, 60);
     return out;
 }
+
+/*
+void PentaminoSolver::display_solution()
+{
+    int ** out = new int * [this->field.height];
+    for(int i = 0; i < this->field.height; i++){
+        out[i] = new int [this->field.width];
+        for(int j = 0; j < field.width; j++)
+            out[i][j] = -1;
+    }
+
+    for(int fignum = 0; fignum < 12; fignum++){
+        for(int i = 0; i < 60; i++)
+            if(masks[fignum][res[fignum]] & (1L << i)){
+                int x = this->field.list[i].x;
+                int y = this->field.list[i].y;
+                out[x][y] = fignum;
+            }
+    }
+
+    for(int x = 0; x < field.height; x++){
+        for(int y = 0; y < field.width; y++){
+            switch(out[x][y]){
+            case -1:
+                printf("    ");
+                break;
+            default:
+                printf("%2i  ", out[x][y]);
+                break;
+            }
+        }
+        printf("\n");
+    }
+
+    for(int i = 0; i < field.height; i++)
+        delete [] out [i];
+    delete [] out;
+
+}*/

@@ -17,7 +17,6 @@ public:
 
     GridView(QWidget * parent, int x = 20, int y = 20);
 
-
     pnt * givePoints();
     void setPoints(pnt * points);
 
@@ -31,7 +30,10 @@ public:
     void clear ();
 
 protected:
+    bool dragSettingValue = false;
     void mousePressEvent(QMouseEvent * event) override;
+    void mouseMoveEvent(QMouseEvent * event) override;
+    void mouseReleaseEvent(QMouseEvent * event) override;
     void paintEvent(QPaintEvent * event) override;
 
 public slots:

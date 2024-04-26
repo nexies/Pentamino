@@ -22,6 +22,7 @@ private:
     bool legal = false;
 
     Ui::MainWindow *ui;
+
 private slots:
     void onSelected(int num);
     void onActionFindSolutionTriggered();
